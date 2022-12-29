@@ -1,14 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="./script.js"></script>
+    <script src="script.js" defer></script>
     <title>Memory Game</title>
 </head>
+
 <body>
-    
+    <main>
+        <section class="section-one">
+            <h1>Memory Game</h1>
+            <table>
+                <tr>
+                    <td><button id="0" onclick="showLetter(0)"></button></td>
+                    <td><button id="1" onclick="showLetter(1)"></button></td>
+                    <td><button id="2" onclick="showLetter(2)"></button></td>
+                    <td><button id="3" onclick="showLetter(3)"></button></td>
+                </tr>
+                <tr>
+                    <td><button id="4" onclick="showLetter(4)"></button></td>
+                    <td><button id="5" onclick="showLetter(5)"></button></td>
+                    <td><button id="6" onclick="showLetter(6)"></button></td>
+                    <td><button id="7" onclick="showLetter(7)"></button></td>
+                </tr>
+                <tr>
+                    <td><button id="8" onclick="showLetter(8)"></button></td>
+                    <td><button id="9" onclick="showLetter(9)"></button></td>
+                    <td><button id="10" onclick="showLetter(10)"></button></td>
+                    <td><button id="11" onclick="showLetter(11)"></button></td>
+                </tr>
+                <tr>
+                    <td><button id="12" onclick="showLetter(12)"></button></td>
+                    <td><button id="13" onclick="showLetter(13)"></button></td>
+                    <td><button id="14" onclick="showLetter(14)"></button></td>
+                    <td><button id="15" onclick="showLetter(15)"></button></td>
+                </tr>
+            </table>
+        </section>
+        <section class="section-two">
+            <h2 id="correct" class="stats">Correct: 0</h2>
+            <h2 id="time" class="stats">Time: 0</h2>
+            <h2 id="moves" class="stats">Moves: 0</h2>
+        </section>
+    </main>
+    <footer>
+        <p>Este juego fue hecho para fines de practica. Por "Laf"</p>
+    </footer>
 </body>
+
 </html>
