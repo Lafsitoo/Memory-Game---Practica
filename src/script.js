@@ -6,10 +6,15 @@ let resultOne = null;
 let resultTwo = null;
 let moves = 0;
 let correct = 0;
+let timer = false;
+let time = 30;
+let timerInitial = time;
+let timeRemaining = null;
 
 // Archivos HTML
 let uncoveredMoves = document.getElementById("moves");
 let uncoveredCorrects = document.getElementById("correct");
+let uncoveredTime = document.getElementById("time");
 
 // Generación de numeros
 let numbers = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
@@ -19,8 +24,34 @@ numbers = numbers.sort(() => {
 });
 console.log(numbers); // Comporbamos
 
-// Funcion principal
+// Funciones
+function counter() {
+  timeRemaining = setInterval(() => {
+    time--;
+    uncoveredTime.innerHTML = `Time: ${time} segs`;
+    if (time == 0) {
+      clearInterval(timeRemaining);
+      blockCards();
+    }
+  }, 1000);
+}
+
+function blockCards() {
+  for (let i = 0; i <= 15; i++) {
+    let cardBlock = document.getElementById(i);
+    cardBlock.innerHTML = numbers[i];
+    cardBlock.disabled = true;
+  }
+}
+
+// Función principal
 function showLetter(id) {
+  // Temporizador
+  if (timer == false) {
+    counter();
+    timer = true;
+  }
+
   uncoveredCards++;
   console.log(uncoveredCards);
 
@@ -52,6 +83,23 @@ function showLetter(id) {
       // +1 Aciertos
       correct++;
       uncoveredCorrects.innerHTML = `Corrects: ${correct}`;
+
+      // End Game
+      if (correct == 8) {
+        clearInterval(timeRemaining)
+        uncoveredCorrects.innerHTML = `Corrects: ${correct} 🎉`;
+        uncoveredTime.innerHTML = `Ending in ${timerInitial - time} segs ⏱`;
+        uncoveredMoves.innerHTML = `Moves: ${moves} 🤘`;
+      }
+    } else {
+      // Mostrar brevemente y ocultar
+      setTimeout(() => {
+        cardOne.innerHTML = " ";
+        cardTwo.innerHTML = " ";
+        cardOne.disabled = false;
+        cardTwo.disabled = false;
+        uncoveredCards = 0;
+      }, 800);
     }
   }
 }
