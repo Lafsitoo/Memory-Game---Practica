@@ -7,9 +7,16 @@ let resultTwo = null;
 let moves = 0;
 let correct = 0;
 let timer = false;
-let time = 30;
+let time = 40;
 let timerInitial = time;
 let timeRemaining = null;
+
+// Sonidos Variables
+let clickAudio = new Audio("./sounds/click.wav")
+let correctAudio = new Audio("./sounds/correct.wav")
+let incorrectAudio = new Audio("./sounds/incorrect.wav")
+let loseAudio = new Audio("./sounds/lose.wav")
+let winAudio = new Audio("./sounds/win.wav")
 
 // Archivos HTML
 let uncoveredMoves = document.getElementById("moves");
@@ -32,6 +39,7 @@ function counter() {
     if (time == 0) {
       clearInterval(timeRemaining);
       blockCards();
+      loseAudio.play()
     }
   }, 1000);
 }
@@ -39,7 +47,7 @@ function counter() {
 function blockCards() {
   for (let i = 0; i <= 15; i++) {
     let cardBlock = document.getElementById(i);
-    cardBlock.innerHTML = numbers[i];
+    cardBlock.innerHTML = `<img src="./images/${numbers[i]}.png" alt="imageCard">`;;
     cardBlock.disabled = true;
   }
 }
@@ -59,7 +67,8 @@ function showLetter(id) {
     // Mostrar primer num
     cardOne = document.getElementById(id);
     resultOne = numbers[id];
-    cardOne.innerHTML = resultOne;
+    cardOne.innerHTML = `<img src="./images/${resultOne}.png" alt="imageCard">`;
+    clickAudio.play()
 
     // Deshabilitamos el boton
     cardOne.disabled = true;
@@ -67,7 +76,7 @@ function showLetter(id) {
     // Mostrar segundo num
     cardTwo = document.getElementById(id);
     resultTwo = numbers[id];
-    cardTwo.innerHTML = resultTwo;
+    cardTwo.innerHTML = `<img src="./images/${resultTwo}.png" alt="imageCard">`;
 
     // Tambien deshabilitamos el baton
     cardTwo.disabled = true;
@@ -83,16 +92,19 @@ function showLetter(id) {
       // +1 Aciertos
       correct++;
       uncoveredCorrects.innerHTML = `Corrects: ${correct}`;
+      correctAudio.play()
 
       // End Game
       if (correct == 8) {
-        clearInterval(timeRemaining)
+        winAudio.play()
+        clearInterval(timeRemaining);
         uncoveredCorrects.innerHTML = `Corrects: ${correct} 🎉`;
         uncoveredTime.innerHTML = `Ending in ${timerInitial - time} segs ⏱`;
         uncoveredMoves.innerHTML = `Moves: ${moves} 🤘`;
       }
     } else {
       // Mostrar brevemente y ocultar
+      incorrectAudio.play()
       setTimeout(() => {
         cardOne.innerHTML = " ";
         cardTwo.innerHTML = " ";
